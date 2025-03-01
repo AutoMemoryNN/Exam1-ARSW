@@ -1,7 +1,5 @@
 package edu.arsw.exam;
 
-import java.net.http.HttpResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +18,7 @@ public class AppController {
         return "{\np    \"products\":"+ myService.getProducts() + "\n}";
     }
 
-    @GetMapping
+    @GetMapping("/id")
     public String getProduct(@RequestParam Integer id){
         try {
             return "{\np    \"product\":"+ myService.getProduct(id) + "\n}";
@@ -32,7 +30,7 @@ public class AppController {
 
     @PostMapping
     public String createProduct(@RequestParam Integer id){
-        String product = this.myService.regProduct(new AppProduct(id, "", 0.0))
+        String product = this.myService.regProduct(new AppProduct(id, "", 0.0));
         if (product == null) {
             return "ERROR";
         }
