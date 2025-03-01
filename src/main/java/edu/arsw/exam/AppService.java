@@ -9,7 +9,9 @@ public class AppService implements AppServiceInterface{
     private ArrayList<AppProduct> products = new ArrayList<>();
 
     public String getProducts(){
-
+        if (this.products.size() == 0) {
+            return "";
+        }
         StringBuffer sb = new StringBuffer();
         for (AppProduct appProduct : products) {
             sb.append(appProduct);
@@ -19,12 +21,23 @@ public class AppService implements AppServiceInterface{
 
     public String regProduct(AppProduct product){
 
-        return this.products.toString();
-
+        try {
+            this.products.add(product);
+            return product.toString();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public String getProduct(Integer id){
-        return this.products.toString();
-        
+
+        for (AppProduct appProduct : products) {
+            if (appProduct.id == id){
+                return appProduct.toString();
+            }
+        }
+        return null;
+
+        //throw new Exception("That product does not exist");
     }
 }

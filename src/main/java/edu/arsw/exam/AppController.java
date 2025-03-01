@@ -22,20 +22,21 @@ public class AppController {
 
     @GetMapping
     public String getProduct(@RequestParam Integer id){
+        try {
+            return "{\np    \"product\":"+ myService.getProduct(id) + "\n}";
+        } catch (Exception e) {
+            return e.toString();
+        }
 
-        return "{\np    \"product\":"+ myService.getProduct(id) + "\n}";
     }
 
     @PostMapping
-    public String createProduct(){
-        try {
-            return "Ok";
-        } catch (Exception e) {
+    public String createProduct(@RequestParam Integer id){
+        String product = this.myService.regProduct(new AppProduct(id, "", 0.0))
+        if (product == null) {
             return "ERROR";
         }
+        return product;
     }
-
-
-
 
 }
